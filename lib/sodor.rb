@@ -3,5 +3,9 @@
 require 'sodor/version'
 
 module Sodor
-  # Your code goes here...
+  class Station
+  end
+
+  class Line
+  end
 end
