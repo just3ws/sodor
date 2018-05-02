@@ -1,0 +1,36 @@
+---
+AllCops:
+  DefaultFormatter: fuubar
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  ExtraDetails: true
+  MaxFilesInCache: 2048
+  TargetRubyVersion: 2.5
+  UseCache: true
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+  Exclude:
+    - '*.gemspec'
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: always
+
+Metrics/BlockLength:
+  Exclude:
+    - '*.gemspec'
+    - 'Rakefile'
+    - '**/*.rake'
+    - 'spec/**/*.rb'
+
+Metrics/MethodLength:
+  Enabled: false
