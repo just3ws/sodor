@@ -1,0 +1,26 @@
+- distance along a route
+- number of routes between two towns
+- shortest route between towns
+  - number of nodes traveled
+  - sum of route distance
+
+
+Directed Graph
+
+Node == Town == Station
+
+"Line" is the route between nodes/towns
+
+Line == Relation == Association
+
+Route is collection of Lines & Stations
+
+A =(5)=> B
+B =(4)=> C
+C =(8)=> D
+D =(8)=> C
+D =(6)=> E
+A =(5)=> D
+C =(2)=> E
+E =(3)=> B
+A =(7)=> E
