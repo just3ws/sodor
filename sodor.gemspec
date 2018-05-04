@@ -15,23 +15,21 @@ Gem::Specification.new do |spec|
   spec.description   = 'Prototype rail app for the North Western Railway in Sodor'
   spec.homepage      = 'http://nwrail.com'
 
-  # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
-  # to allow pushing to a single host or delete this section to allow pushing to any host.
   if spec.respond_to?(:metadata)
-    spec.metadata['allowed_push_host'] = ''
-  else
-    raise 'RubyGems 2.0 or newer is required to protect against ' \
-      'public gem pushes.'
+    spec.metadata['allowed_push_host'] = 'http://localhost'
+    spec.metadata['yard.run'] = 'yri'
   end
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
+
   spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
-  spec.require_paths = ['lib']
+  spec.executables   = 'sodor'
+  spec.require_paths = %w[lib]
 
   spec.add_development_dependency 'bundler', '~> 1.16.1'
   spec.add_development_dependency 'rake', '~> 12.3.1'
   spec.add_development_dependency 'rspec', '~> 3.7.0'
+  spec.add_development_dependency 'yard', '~> 0.9.12'
 end

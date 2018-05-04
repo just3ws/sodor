@@ -16,11 +16,15 @@ Line == Relation == Association
 Route is collection of Lines & Stations
 
 A =(5)=> B
+A =(7)=> E
+A =(5)=> D
+
 B =(4)=> C
+
 C =(8)=> D
+C =(2)=> E
+
 D =(8)=> C
 D =(6)=> E
-A =(5)=> D
-C =(2)=> E
+
 E =(3)=> B
-A =(7)=> E
