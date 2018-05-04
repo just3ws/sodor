@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+echo ' === RSPEC ==='
+echo
+
+bundle exec rspec
+
+echo
+echo ' === SMOKE TEST ==='
+echo
+
+echo
+echo ' === FILE NAME ARG ==='
+echo
+
+./exe/sodor spec/fixtures/default.lst
+
+echo
+echo ' === PIPE ARG ==='
+echo
+
+./exe/sodor < spec/fixtures/default.lst
