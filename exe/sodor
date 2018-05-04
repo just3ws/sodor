@@ -7,10 +7,9 @@ Signal.trap('TERM') { exit(143) }
 
 require 'bundler/setup'
 
-# require 'luhna'
-# require 'luhna/cli'
-# require 'luhna/app'
-# require 'luhna/reports/accounts_summary'
+# require 'sodor'
+require 'sodor/cli'
+# require 'sodor/app'
 require 'optparse'
 
 OptionParser.new do |opts|
@@ -27,12 +26,12 @@ OptionParser.new do |opts|
   end
 end.parse!
 
-# raise 'File not processable' unless Luhna::CLI.processable?
+raise 'File not processable' unless Sodor::CLI.processable?
 
 begin
-  # app = Luhna::CLI.run(Luhna::App.new, ARGF)
+  # app = Sodor::CLI.run(Sodor::App.new, ARGF)
 
-  # Luhna::Reports::AccountsSummary.new(app.bank).run
+  # Sodor::Reports::AccountsSummary.new(app.bank).run
 rescue Errno::EPIPE
   exit(74)
 end
