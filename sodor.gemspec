@@ -31,6 +31,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'bundler', '~> 1.16.1'
   spec.add_development_dependency 'rake', '~> 12.3.1'
   spec.add_development_dependency 'rspec', '~> 3.7.0'
-  spec.add_development_dependency 'ruby-graphviz', '~> 1.2.3'
   spec.add_development_dependency 'yard', '~> 0.9.12'
 end

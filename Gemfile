@@ -4,13 +4,13 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-# Specify your gem's dependencies in luhna.gemspec
 gemspec
 
 gem 'awesome_print'
 gem 'byebug'
 gem 'pry'
 gem 'pry-byebug'
+gem 'ruby-graphviz'
 
 group :development do
   gem 'bundler-audit', require: false
