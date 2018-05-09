@@ -140,7 +140,7 @@ DEPENDENCIES
   rubocop
   rubocop-rspec
   rubocop-thread_safety
-  ruby-graphviz
+  ruby-graphviz (~> 1.2.3)
   simplecov
   sodor!
   yard (~> 0.9.12)

@@ -20,6 +20,8 @@ module Sodor
               .map(&to_new_rail_line)
               .each_with_object(Sodor::Railroad.new) { |rail_line, railroad| railroad << rail_line }
 
+      ap sodor
+
       binding.pry
       puts
 

@@ -8,9 +8,9 @@ module Sodor
       @name = name
     end
 
-    # def eql?(other)
-    #   name.casecmp?(other.name)
-    # end
-    # alias == eql?
+    def eql?(other)
+      name.casecmp?(other.name)
+    end
+    alias == eql?
   end
 end
