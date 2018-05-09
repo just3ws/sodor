@@ -8,6 +8,8 @@ git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 gemspec
 
 group :development do
+  gem 'ruby-graphviz'
+
   gem 'byebug'
   gem 'pry'
   gem 'pry-byebug'
