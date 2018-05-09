@@ -11,5 +11,9 @@ module Sodor
       @destination = destination
       @distance = distance
     end
+
+    def to_s
+      "#{origin} =(#{distance})=> #{destination}"
+    end
   end
 end

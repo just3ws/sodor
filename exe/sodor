@@ -12,6 +12,10 @@ require 'sodor/cli'
 require 'sodor/app'
 require 'optparse'
 
+require 'awesome_print'
+require 'pry'
+require 'byebug'
+
 OptionParser.new do |opts|
   opts.banner = 'Usage: bundle exec sodor [OPTION]... [FILE]'
 
@@ -30,6 +34,7 @@ raise 'File not processable' unless Sodor::CLI.processable?
 
 begin
   app = Sodor::CLI.run(Sodor::App.new, ARGF)
+  ap [:app, app]
 
   # Sodor::Reports::AccountsSummary.new(app.bank).run
 rescue Errno::EPIPE

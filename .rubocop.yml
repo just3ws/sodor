@@ -34,3 +34,6 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Enabled: false
+
+Lint/Debugger:
+  Enabled: false
