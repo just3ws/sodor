@@ -5,13 +5,7 @@ require 'sodor/railroad'
 
 module Sodor
   module CLI
-    def self.processable?
-      ARGF.filename != '-' || !(STDIN.tty? || STDIN.closed?)
-    end
-
     def self.run(app, io)
-      # routes = Sodor::Railroad.new
-
       to_new_rail_line = lambda do |rail_line|
         Sodor::RailLine.new(
           origin: Sodor::Station.new(name: rail_line.origin),
@@ -20,17 +14,20 @@ module Sodor
         )
       end
 
-      rail_lines = io
-                   .each_line
-                   .map { |line| Sodor::ETL::RailLine.parse(line) }
-                   .map(&to_new_rail_line)
-
-      ap rail_lines
+      sodor = io
+              .each_line
+              .map { |line| Sodor::ETL::RailLine.parse(line) }
+              .map(&to_new_rail_line)
+              .each_with_object(Sodor::Railroad.new) { |rail_line, railroad| railroad << rail_line }
 
       binding.pry
       puts
 
       app
+    end
+
+    def self.processable?
+      ARGF.filename != '-' || !(STDIN.tty? || STDIN.closed?)
     end
   end
 end

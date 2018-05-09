@@ -22,14 +22,10 @@ module Sodor
       @hash.keys
     end
 
-    # def +(other)
-    #   @lines.add(other)
-    # end
-
-    def +(other)
+    def <<(other)
       other.tap do |line|
-        @hash[line.origin] ||= line
-        @hash[line.destination] ||= Set.new
+        @hash[line.origin.name] << line
+        @hash[line.destination.name] ||= Set.new
       end
     end
 

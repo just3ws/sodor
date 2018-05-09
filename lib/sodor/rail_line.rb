@@ -13,7 +13,7 @@ module Sodor
     end
 
     def to_s
-      "#{origin} =(#{distance})=> #{destination}"
+      "#{origin.name} =(#{distance})=> #{destination.name}"
     end
   end
 end
