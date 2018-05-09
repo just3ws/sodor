@@ -1,17 +1,16 @@
 # frozen_string_literal: true
 
 require 'ostruct'
-require 'sodor/line'
 
 module Sodor
   module ETL
-    module Line
+    module RailLine
       module_function
 
       def parse(line)
         line.strip!.upcase!
 
-        Sodor::Line.new(
+        OpenStruct.new(
           origin: line[0].freeze,
           destination: line[1].freeze,
           distance: Integer(line[2..-1])

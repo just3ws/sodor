@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'sodor/etl/line'
+require 'sodor/etl/rail_line'
 require 'sodor/railroad'
 
 module Sodor
@@ -12,17 +12,17 @@ module Sodor
     def self.run(app, io)
       # routes = Sodor::Railroad.new
 
-      to_new_rail_line = lambda do |line|
-        Line.new(
-          origin: Station.new(name: line.origin),
-          destination: Station.new(name: line.destination),
-          distance: line.distance
+      to_new_rail_line = lambda do |rail_line|
+        Sodor::RailLine.new(
+          origin: Sodor::Station.new(name: rail_line.origin),
+          destination: Sodor::Station.new(name: rail_line.destination),
+          distance: rail_line.distance
         )
       end
 
       rail_lines = io
                    .each_line
-                   .map { |line| Sodor::ETL::Line.parse(line) }
+                   .map { |line| Sodor::ETL::RailLine.parse(line) }
                    .map(&to_new_rail_line)
 
       ap rail_lines

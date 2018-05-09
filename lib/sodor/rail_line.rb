@@ -3,7 +3,7 @@
 require 'sodor/station'
 
 module Sodor
-  class Line
+  class RailLine
     attr_reader :origin, :destination, :distance
 
     def initialize(origin:, destination:, distance:)

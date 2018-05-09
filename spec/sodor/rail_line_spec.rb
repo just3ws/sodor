@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'sodor/station'
-require 'sodor/line'
+require 'sodor/rail_line'
 
 module Sodor
-  RSpec.describe Line do
+  RSpec.describe RailLine do
     let(:origin) { Station.new(name: 'A') }
     let(:destination) { Station.new(name: 'B') }
     let(:distance) { 5 }
