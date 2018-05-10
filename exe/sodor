@@ -33,7 +33,7 @@ end.parse!
 raise 'File not processable' unless Sodor::CLI.processable?
 
 begin
-  app = Sodor::CLI.run(Sodor::App.new, ARGF)
+  app = Sodor::CLI.run(Sodor::App, ARGF)
   ap [:app, app]
 
   # Sodor::Reports::AccountsSummary.new(app.bank).run

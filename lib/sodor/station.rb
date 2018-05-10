@@ -5,7 +5,7 @@ module Sodor
     attr_reader :name
 
     def initialize(name:)
-      @name = name
+      @name = name.freeze
     end
 
     def eql?(other)

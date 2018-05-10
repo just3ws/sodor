@@ -11,22 +11,22 @@ module Sodor
     extend Forwardable
     include TSort
 
-    attr_reader :lines
-    def_delegators :@hash, :[]=, :[], :values
+    attr_reader :lines, :stations
+    def_delegators :@stations, :[]=, :[], :values
 
     def initialize
-      @hash = Hash.new { |h, k| h[k] = Set.new }
-    end
-
-    def stations
-      @hash.keys
+      @stations = Hash.new { |h, k| h[k] = Set.new }
     end
 
     def <<(other)
       other.tap do |line|
-        @hash[line.origin.name] << line
-        @hash[line.destination.name] ||= Set.new
+        stations[line.origin.name] << line
+        stations[line.destination.name] ||= Set.new
       end
+    end
+
+    def station_names
+      station.keys
     end
 
     # alias tsort_each_node each_key
