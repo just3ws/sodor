@@ -13,13 +13,16 @@ module Sodor
     def_delegators :@stations, :[]=, :[], :values
 
     def initialize
-      @stations = Hash.new { |h, k| h[k] = Set.new }
+      @stations = {}
     end
 
     def <<(other)
       other.tap do |line|
-        stations[line.origin.name].add(line)
-        stations[line.destination.name] ||= Set.new
+        stations[line.origin.name] ||= line.origin
+        stations[line.origin.name].lines.outbound.add(line.destination)
+
+        stations[line.destination.name] ||= line.destination
+        stations[line.destination.name].lines.inbound.add(line.origin)
       end
     end
 
