@@ -6,8 +6,7 @@ require 'sodor/railroad/marshal'
 module Sodor
   module CLI
     def self.run(app, io)
-      railroad = Sodor::Railroad::Marshal.load(io)
-      app.new(railroad: railroad)
+      app.new(railroad: Sodor::Railroad::Marshal.load(io))
     end
 
     def self.processable?

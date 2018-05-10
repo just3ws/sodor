@@ -8,7 +8,7 @@ module Sodor
       def load(io)
         io
           .each_line
-          .map(&LINE_TO_PARAMS)
+          .map(&TO_RAIL_LINE_PARAMS)
           .map(&TO_RAIL_LINE)
           .each_with_object(Railroad.new) { |rail_line, railroad| railroad << rail_line }
       end
@@ -21,7 +21,7 @@ module Sodor
         )
       end
 
-      LINE_TO_PARAMS = lambda do |line|
+      TO_RAIL_LINE_PARAMS = lambda do |line|
         {
           origin: line[0].freeze,
           destination: line[1].freeze,

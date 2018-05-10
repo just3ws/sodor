@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'set'
+
 module Sodor
   class Station
     attr_reader :name

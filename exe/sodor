@@ -34,7 +34,11 @@ raise 'File not processable' unless Sodor::CLI.processable?
 
 begin
   app = Sodor::CLI.run(Sodor::App, ARGF)
-  ap [:app, app]
+
+  ap app
+
+  binding.pry
+  puts
 
   # Sodor::Reports::AccountsSummary.new(app.bank).run
 rescue Errno::EPIPE
