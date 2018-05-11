@@ -16,6 +16,8 @@ require 'awesome_print'
 require 'pry'
 require 'byebug'
 
+require 'set'
+
 OptionParser.new do |opts|
   opts.banner = 'Usage: bundle exec sodor [OPTION]... [FILE]'
 
@@ -32,13 +34,54 @@ end.parse!
 
 raise 'File not processable' unless Sodor::CLI.processable?
 
+Pair = Struct.new(:inbound, :outbound, :distance)
+
+def rowify(origin, destination, distance)
+  [
+    origin,
+    destination,
+    Integer(distance)
+  ].freeze
+end
+
+ROOT = 'A'
+
+@table = Set.new
+
+@nodes = {}
+
+def xxx(root)
+  @nodes[root].map { |_child| [root, @nodes[root]] }
+end
+
 begin
-  app = Sodor::CLI.run(Sodor::App, ARGF)
+  # app = Sodor::CLI.run(Sodor::App, ARGF)
 
-  ap app
+  ARGF.each_line do |line|
+    # pairs.add(Pair.new(*line.strip.split('')))
+    row = rowify(*line.strip.split(''))
+    @table.add(row)
 
-  binding.pry
-  puts
+    @nodes[row.first] ||= []
+    @nodes[row.first].push(row[1])
+  end
+
+  # ap @table
+
+  tree = @nodes[ROOT].map do |_d1|
+    xxx(ROOT)
+    # [
+    #   ROOT,
+    #   @nodes[d1].map do |d2|
+    #     [
+    #       d1,
+    #       nodes[d2].map { |d3| [d2,d3] }
+    #     ]
+    #   end
+    # ]
+  end
+
+  puts tree.inspect
 
   # Sodor::Reports::AccountsSummary.new(app.bank).run
 rescue Errno::EPIPE

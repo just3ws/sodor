@@ -15,6 +15,8 @@ Gem::Specification.new do |spec|
   spec.description   = 'Prototype rail app for the North Western Railway in Sodor'
   spec.homepage      = 'http://nwrail.com'
 
+  spec.required_ruby_version = '~> 2.5.1'
+
   if spec.respond_to?(:metadata)
     spec.metadata['allowed_push_host'] = 'http://localhost'
     spec.metadata['yard.run'] = 'yri'
