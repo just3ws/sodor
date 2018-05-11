@@ -5,8 +5,7 @@ module Sodor
     attr_reader :origin, :destination, :distance, :hash
 
     def initialize(line_code)
-      @line_code = line_code.strip.freeze
-      @line_code.split('').tap do |parts|
+      line_code.strip.split('').tap do |parts|
         @origin = parts[0].to_sym
         @destination = parts[1].to_sym
         @distance = Integer(parts[2])

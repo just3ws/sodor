@@ -14,8 +14,16 @@ module Sodor
       @origins ||= classify(&:origin).freeze
     end
 
+    def origin_names
+      origins.keys
+    end
+
     def destinations
       @destinations ||= classify(&:destination).freeze
+    end
+
+    def destination_names
+      destinations.keys
     end
   end
 end
