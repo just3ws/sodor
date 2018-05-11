@@ -1,20 +1,22 @@
 # frozen_string_literal: true
 
-require 'sodor/station'
+# # frozen_string_literal: true
 
-module Sodor
-  RSpec.describe Station do
-    subject { described_class.new(name: 'A') }
+# require 'sodor/station'
 
-    it 'has a name' do
-      expect(subject.name).to eq('A')
-    end
+# module Sodor
+#   RSpec.describe Station do
+#     subject { described_class.new(name: 'A') }
 
-    it 'compares instances by their name' do
-      s1 = Station.new(name: 'A')
-      s2 = Station.new(name: 'A')
+#     it 'has a name' do
+#       expect(subject.name).to eq('A')
+#     end
 
-      expect(s1).to eq(s2)
-    end
-  end
-end
+#     it 'compares instances by their name' do
+#       s1 = Station.new(name: 'A')
+#       s2 = Station.new(name: 'A')
+
+#       expect(s1).to eq(s2)
+#     end
+#   end
+# end
