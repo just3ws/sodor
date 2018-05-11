@@ -6,6 +6,8 @@ SimpleCov.start
 require 'bundler/setup'
 require 'sodor'
 
+require 'awesome_print'
+
 RSpec.configure do |config|
   config.disable_monkey_patching!
   config.example_status_persistence_file_path = '.rspec_status'

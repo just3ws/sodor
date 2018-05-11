@@ -40,13 +40,12 @@ raise 'File not processable' unless Sodor::CLI.processable?
 begin
   # app = Sodor::CLI.run(Sodor::App, ARGF)
 
-  # table = ARGF.each_line.each_with_object(Sodor::XLines.new) { |line, set| set.add(Sodor::XLine.new(line)) }
-  table = Sodor::XLines.build(ARGF)
+  x_lines = Sodor::XLines.build(ARGF)
 
-  origins = table.classify(&:inbound)
-  destinations = table.classify(&:outbound)
+  origins = x_lines.classify(&:origin)
+  destinations = x_lines.classify(&:destination)
 
-  ap table
+  ap x_lines
   ap origins
   ap destinations
 

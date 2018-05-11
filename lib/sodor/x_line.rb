@@ -2,20 +2,17 @@
 
 module Sodor
   class XLine
-    attr_reader :inbound, :outbound, :distance
+    attr_reader :origin, :destination, :distance, :hash
 
-    def initialize(line)
-      @line = line.strip.freeze
-      @line.split('').tap do |parts|
-        @inbound = parts[0].to_sym
-        @outbound = parts[1].to_sym
-
+    def initialize(line_code)
+      @line_code = line_code.strip.freeze
+      @line_code.split('').tap do |parts|
+        @origin = parts[0].to_sym
+        @destination = parts[1].to_sym
         @distance = Integer(parts[2])
       end
-    end
-
-    def hash
-      @hash ||= "#{inbound}#{outbound}".to_sym.hash.freeze
+      @hash ||= "#{@origin}#{@destination}".to_sym.hash.freeze
+      freeze
     end
 
     def eql?(other)

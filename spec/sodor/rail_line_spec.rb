@@ -5,10 +5,6 @@ require 'sodor/rail_line'
 
 module Sodor
   RSpec.describe RailLine do
-    let(:origin) { Station.new(name: 'A') }
-    let(:destination) { Station.new(name: 'B') }
-    let(:distance) { 5 }
-
     subject do
       described_class.new(
         origin: origin,
@@ -16,6 +12,10 @@ module Sodor
         distance: distance
       )
     end
+
+    let(:origin) { Station.new(name: 'A') }
+    let(:destination) { Station.new(name: 'B') }
+    let(:distance) { 5 }
 
     it 'has an originating station' do
       expect(subject.origin).to eq(origin)
