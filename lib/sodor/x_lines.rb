@@ -5,8 +5,16 @@ require 'sodor/x_line'
 module Sodor
   class XLines < Set
     def routes(origin_station_code, destination_station_code)
-      return [] unless routeable?(origin_station_code, destination_station_code)
-      [].tap do |routes|
+      return Set.new unless routable?(origin_station_code, destination_station_code)
+
+      Set.new.tap do |r|
+        o = origins[origin_station_code]
+        return Set.new if o.empty?
+
+        # Did we arrive at our destination?
+        d = o.select { |x_line| x_line.destination == destination_station_code }
+
+        r << [origin_station_code, destination_station_code] if d.any?
       end
     end
 

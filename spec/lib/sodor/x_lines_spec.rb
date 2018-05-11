@@ -10,6 +10,12 @@ module Sodor
     let(:line_codes) { %w[AB1 BC2] }
     let(:lines) { line_codes.map { |line_code| XLine.new(line_code) } }
 
+    describe '#routes' do
+      it { expect(subject.routes(:X, :Y)).to be_empty }
+
+      it { expect(subject.routes(:A, :B)).to contain_exactly(%i[A B]) }
+    end
+
     describe '#routable?' do
       it { is_expected.to be_routable(:A, :C) }
       it { is_expected.not_to be_routable(:C, :B) }

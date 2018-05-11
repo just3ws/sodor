@@ -7,6 +7,8 @@ require 'bundler/setup'
 require 'sodor'
 
 require 'awesome_print'
+require 'pry'
+require 'byebug'
 
 RSpec.configure do |config|
   config.disable_monkey_patching!
