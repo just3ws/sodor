@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'sodor/x_line'
+require 'sodor/line'
 require 'sodor/station'
 
 module Sodor
-  RSpec.describe XLine do
+  RSpec.describe Line do
     subject(:line) { described_class.new(line_code) }
 
     let(:line_code) { 'AB1' }
@@ -13,6 +13,6 @@ module Sodor
     it { expect(line.origin).to eq(Station.new(:A)) }
     it { expect(line.destination).to eq(Station.new(:B)) }
     it { expect(line.distance).to equal(1) }
-    it { expect(line).to eq(XLine.new(line_code)) }
+    it { expect(line).to eq(Line.new(line_code)) }
   end
 end

@@ -1,33 +1,35 @@
 # frozen_string_literal: true
 
-require 'sodor/station'
-require 'sodor/rail_line'
-require 'set'
-require 'forwardable'
+# # frozen_string_literal: true
 
-module Sodor
-  class Railroad
-    extend Forwardable
+# require 'sodor/station'
+# require 'sodor/rail_line'
+# require 'set'
+# require 'forwardable'
 
-    attr_reader :lines, :stations
-    def_delegators :@stations, :[]=, :[], :values
+# module Sodor
+#   class Railroad
+#     extend Forwardable
 
-    def initialize
-      @stations = {}
-    end
+#     attr_reader :lines, :stations
+#     def_delegators :@stations, :[]=, :[], :values
 
-    def <<(other)
-      other.tap do |line|
-        stations[line.origin.name] ||= line.origin
-        stations[line.origin.name].lines.outbound.add(line.destination)
+#     def initialize
+#       @stations = {}
+#     end
 
-        stations[line.destination.name] ||= line.destination
-        stations[line.destination.name].lines.inbound.add(line.origin)
-      end
-    end
+#     def <<(other)
+#       other.tap do |line|
+#         stations[line.origin.name] ||= line.origin
+#         stations[line.origin.name].lines.outbound.add(line.destination)
 
-    def station_names
-      stations.keys
-    end
-  end
-end
+#         stations[line.destination.name] ||= line.destination
+#         stations[line.destination.name].lines.inbound.add(line.origin)
+#       end
+#     end
+
+#     def station_names
+#       stations.keys
+#     end
+#   end
+# end

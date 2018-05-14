@@ -1,31 +1,31 @@
 # frozen_string_literal: true
 
-require 'sodor/x_lines'
-require 'sodor/x_line'
+require 'sodor/lines'
+require 'sodor/line'
 
 module Sodor
-  RSpec.describe XLines do
-    subject(:x_lines) { described_class.new(lines) }
+  RSpec.describe Lines do
+    subject { described_class.new(lines) }
 
     let(:line_codes) { %w[AB1 BC2] }
-    let(:lines) { line_codes.map { |line_code| XLine.new(line_code) } }
+    let(:lines) { line_codes.map { |line_code| Line.new(line_code) } }
 
     describe '#routes' do
       context 'with non-existent origin and destination' do
-        it { expect(x_lines.routes(Station.new(:X), Station.new(:B))).to be_empty }
-        it { expect(x_lines.routes(Station.new(:A), Station.new(:Y))).to be_empty }
-        it { expect(x_lines.routes(Station.new(:X), Station.new(:Y))).to be_empty }
+        it { expect(subject.routes(Station.new(:X), Station.new(:B))).to be_empty }
+        it { expect(subject.routes(Station.new(:A), Station.new(:Y))).to be_empty }
+        it { expect(subject.routes(Station.new(:X), Station.new(:Y))).to be_empty }
       end
 
       xcontext 'with a single direct route' do
-        xit { expect(x_lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
+        xit { expect(lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
       end
 
       xcontext 'with a single hop route' do
         let(:line_codes) { %w[AB1 BC2 CD3] }
 
         xit do
-          # expect(x_lines.routes(:A, :C)).to contain_exactly(%i[A B C])
+          # expect(lines.routes(:A, :C)).to contain_exactly(%i[A B C])
 
           # Is origin directly connected to destination?
           # for each destination that is reachable from the origin
@@ -33,7 +33,7 @@ module Sodor
           #     for each destination that is reachable from the new origin
           #       check if ...
 
-          # foo = x_lines.routes(:A, :C)
+          # foo = lines.routes(:A, :C)
 
           # ap foo
           #
@@ -52,7 +52,7 @@ module Sodor
 
     describe '#origin' do
       it do
-        expect(x_lines.origins_for(Station.new(:B))).to contain_exactly(Station.new(:A))
+        expect(subject.origins_for(Station.new(:B))).to contain_exactly(Station.new(:A))
       end
     end
 
@@ -68,7 +68,7 @@ module Sodor
 
     describe '#destinations_for' do
       it do
-        expect(x_lines.destinations_for(Station.new(:A))).to contain_exactly(Station.new(:B))
+        expect(subject.destinations_for(Station.new(:A))).to contain_exactly(Station.new(:B))
       end
     end
 
@@ -82,7 +82,7 @@ module Sodor
         end
       end
 
-      it { is_expected.to be_an_instance_of(XLines) }
+      it { is_expected.to be_an_instance_of(Lines) }
       it { is_expected.to contain_exactly(*lines) }
     end
   end

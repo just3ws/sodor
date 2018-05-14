@@ -3,7 +3,7 @@
 require 'sodor/station'
 
 module Sodor
-  class XLine
+  class Line
     attr_reader :origin, :destination, :distance, :hash
 
     def initialize(line_code)

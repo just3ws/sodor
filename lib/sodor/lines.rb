@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'sodor/x_line'
+require 'sodor/line'
 
 module Sodor
-  class XLines < Set
+  class Lines < Set
     def routes(origin_station, destination_station)
       return Set.new unless routable?(origin_station, destination_station)
     end
@@ -21,7 +21,7 @@ module Sodor
 
     # Stations known to have outbound line(s).
     def origins
-      @origins ||= classify { |x_line| x_line.origin.code }.freeze
+      @origins ||= classify { |line| line.origin.code }.freeze
     end
 
     # Is this station known to have an inbound line(s)?
@@ -31,7 +31,7 @@ module Sodor
 
     # Stations known to have inbound line(s).
     def destinations
-      @destinations ||= classify { |x_line| x_line.destination.code }.freeze
+      @destinations ||= classify { |line| line.destination.code }.freeze
     end
 
     # What are the stations that have outbound line(s) directly to this station?
@@ -46,13 +46,13 @@ module Sodor
 
     def stations
       @stations ||= begin
-                      flat_map { |x_line| [x_line.destination, x_line.origin] }.sort.uniq.freeze
+                      flat_map { |line| [line.destination, line.origin] }.sort.uniq.freeze
                     end
     end
 
     def self.build(io)
-      io.each_line.each_with_object(XLines.new) do |line_code, x_lines|
-        x_lines.add(Sodor::XLine.new(line_code))
+      io.each_line.each_with_object(Lines.new) do |line_code, lines|
+        lines.add(Sodor::Line.new(line_code))
       end
     end
   end

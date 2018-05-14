@@ -10,8 +10,8 @@ require 'bundler/setup'
 require 'sodor'
 require 'sodor/cli'
 require 'sodor/app'
-require 'sodor/x_lines'
-require 'sodor/x_line'
+require 'sodor/lines'
+require 'sodor/line'
 
 require 'optparse'
 
@@ -40,12 +40,12 @@ raise 'File not processable' unless Sodor::CLI.processable?
 begin
   # app = Sodor::CLI.run(Sodor::App, ARGF)
 
-  x_lines = Sodor::XLines.build(ARGF)
+  lines = Sodor::Lines.build(ARGF)
 
-  origins = x_lines.classify(&:origin)
-  destinations = x_lines.classify(&:destination)
+  origins = lines.classify(&:origin)
+  destinations = lines.classify(&:destination)
 
-  ap x_lines
+  ap lines
   ap origins
   ap destinations
 
