@@ -5,10 +5,14 @@ require 'sodor/x_line'
 module Sodor
   class XLines < Set
     def routes(origin_station_code, destination_station_code)
+      # ap [:routes, [origin_station_code, destination_station_code]]
+
+      # ap 'routable?'
       return Set.new unless routable?(origin_station_code, destination_station_code)
 
       Set.new.tap do |r|
         o = origins[origin_station_code]
+
         return Set.new if o.empty?
 
         # Did we arrive at our destination?
@@ -44,7 +48,7 @@ module Sodor
     end
 
     def origin_names
-      origins.keys
+      @origin_names ||= origins.keys.freeze
     end
 
     def destinations
@@ -52,7 +56,11 @@ module Sodor
     end
 
     def destination_names
-      destinations.keys
+      @destination_names ||= destinations.keys.freeze
+    end
+
+    def station_names
+      @station_names ||= flat_map { |x_line| [x_line.destination, x_line.origin] }.sort.uniq.freeze
     end
   end
 end

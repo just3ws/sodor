@@ -13,8 +13,8 @@
 #       )
 #     end
 
-#     let(:origin) { Station.new(name: 'A') }
-#     let(:destination) { Station.new(name: 'B') }
+#     let(:origin) { Station.new('A') }
+#     let(:destination) { Station.new('B') }
 #     let(:distance) { 5 }
 
 #     it 'has an originating station' do

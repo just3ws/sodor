@@ -15,8 +15,8 @@ module Sodor
 
       TO_RAIL_LINE = lambda do |rail_line_params|
         RailLine.new(
-          origin: Station.new(name: rail_line_params[:origin]),
-          destination: Station.new(name: rail_line_params[:destination]),
+          origin: Station.new(rail_line_params[:origin]),
+          destination: Station.new(rail_line_params[:destination]),
           distance: rail_line_params[:distance]
         )
       end

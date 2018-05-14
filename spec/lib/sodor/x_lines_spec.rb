@@ -5,15 +5,40 @@ require 'sodor/x_line'
 
 module Sodor
   RSpec.describe XLines do
-    subject { described_class.new(lines) }
+    subject(:x_lines) { described_class.new(lines) }
 
     let(:line_codes) { %w[AB1 BC2] }
     let(:lines) { line_codes.map { |line_code| XLine.new(line_code) } }
 
     describe '#routes' do
-      it { expect(subject.routes(:X, :Y)).to be_empty }
+      context 'with non-existent origin and destination' do
+        it { expect(x_lines.routes(Station.new(:X), Station.new(:Y))).to be_empty }
+      end
 
-      it { expect(subject.routes(:A, :B)).to contain_exactly(%i[A B]) }
+      context 'with a single direct route' do
+        it { expect(x_lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
+      end
+
+      xcontext 'with a single hop route' do
+        let(:line_codes) { %w[AB1 BC2 CD3] }
+
+        xit do
+          # expect(x_lines.routes(:A, :C)).to contain_exactly(%i[A B C])
+
+          # Is origin directly connected to destination?
+          # for each destination that is reachable from the origin
+          #   check if that new origin is directly connected to destination?
+          #     for each destination that is reachable from the new origin
+          #       check if ...
+
+          routes = x_lines.routes(:A, :C)
+
+          ap routes
+
+          binding.pry
+          puts
+        end
+      end
     end
 
     describe '#routable?' do
