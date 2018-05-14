@@ -19,22 +19,27 @@ module Sodor
       origins.key?(station.code)
     end
 
+    # Stations known to have outbound line(s).
     def origins
       @origins ||= classify { |x_line| x_line.origin.code }.freeze
     end
 
+    # Is this station known to have an inbound line(s)?
     def destination?(station)
       destinations.key?(station.code)
     end
 
+    # Stations known to have inbound line(s).
     def destinations
       @destinations ||= classify { |x_line| x_line.destination.code }.freeze
     end
 
+    # What are the stations that have outbound line(s) directly to this station?
     def origins_for(station)
       destinations[station.code].map(&:origin)
     end
 
+    # What are the stations that have inbound line(s) directly from this station?
     def destinations_for(station)
       origins[station.code].map(&:destination)
     end

@@ -2,15 +2,15 @@
 
 module Sodor
   class Station
-    attr_reader :code, :lines
+    attr_reader :code, :inbound, :outbound
 
     def initialize(code)
       @code = code.to_sym
-      # @lines = OpenStruct.new(inbound: Set.new, outbound: Set.new)
+      @inbound = Set.new
+      @outbound = Set.new
     end
 
     def eql?(other)
-      ap other
       code.casecmp?(other.code)
     end
     alias == eql?
