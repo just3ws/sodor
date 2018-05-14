@@ -13,7 +13,7 @@ module Sodor
         @distance = Integer(parts[2])
       end
 
-      @hash ||= "#{@origin}#{@destination}".to_sym.hash.freeze
+      @hash ||= "#{@origin.code}#{@destination.code}".to_sym.hash.freeze
       freeze
     end
 

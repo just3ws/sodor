@@ -10,6 +10,7 @@ module Sodor
     end
 
     def eql?(other)
+      ap other
       code.casecmp?(other.code)
     end
     alias == eql?
