@@ -2,13 +2,19 @@
 
 module Sodor
   class Station
+    include Comparable
+
     attr_reader :code, :inbound, :outbound
 
     def initialize(code)
       @code = code.to_sym
 
-      @inbound = Set.new
-      @outbound = Set.new
+      @inbound = SortedSet.new
+      @outbound = SortedSet.new
+    end
+
+    def <=>(other)
+      code <=> other.code
     end
 
     def eql?(other)

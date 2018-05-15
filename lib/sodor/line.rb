@@ -4,6 +4,8 @@ require 'sodor/station'
 
 module Sodor
   class Line
+    include Comparable
+
     attr_reader :origin, :destination, :distance, :hash
 
     def initialize(origin, destination, distance)
@@ -13,6 +15,10 @@ module Sodor
 
       @hash ||= "#{@origin.code}#{@destination.code}".to_sym.hash.freeze
       freeze
+    end
+
+    def <=>(other)
+      origin.hash <=> other.hash
     end
 
     def eql?(other)

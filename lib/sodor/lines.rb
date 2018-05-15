@@ -3,9 +3,9 @@
 require 'sodor/line'
 
 module Sodor
-  class Lines < Set
+  class Lines < SortedSet
     def routes(origin_station, destination_station)
-      return Set.new unless routable?(origin_station, destination_station)
+      return SortedSet.new unless routable?(origin_station, destination_station)
     end
 
     def routable?(origin_station, destination_station)
