@@ -2,6 +2,12 @@
 
 module Sodor
   class Station
+    class Inbound < SortedSet
+    end
+
+    class Outbound < SortedSet
+    end
+
     include Comparable
 
     attr_reader :code, :inbound, :outbound
@@ -9,8 +15,12 @@ module Sodor
     def initialize(code)
       @code = code.to_sym
 
-      @inbound = SortedSet.new
-      @outbound = SortedSet.new
+      @inbound = Inbound.new
+      @outbound = Outbound.new
+    end
+
+    def departs_to?(station)
+      outbound.include?(station)
     end
 
     def <=>(other)
@@ -21,5 +31,9 @@ module Sodor
       code.casecmp?(other.code)
     end
     alias == eql?
+
+    def inspect
+      [code, { inbound: inbound.map(&:code), outbound: outbound.map(&:code) }]
+    end
   end
 end

@@ -34,6 +34,10 @@ module Sodor
       end
 
       it do
+        route = Stations.trip_builder(stations, stations[:A], stations[:C])
+
+        ap route
+
         binding.pry
         puts
       end
