@@ -6,12 +6,10 @@ module Sodor
   class Line
     attr_reader :origin, :destination, :distance, :hash
 
-    def initialize(line_code)
-      Sodor::LineCode.parse(line_code).tap do |tokens|
-        @origin = Station.new(tokens.origin)
-        @destination = Station.new(tokens.destination)
-        @distance = tokens.distance
-      end
+    def initialize(origin, destination, distance)
+      @origin = origin
+      @destination = destination
+      @distance = distance
 
       @hash ||= "#{@origin.code}#{@destination.code}".to_sym.hash.freeze
       freeze

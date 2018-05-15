@@ -6,8 +6,6 @@ module Sodor
   class Stations < Hash
     def self.build(io)
       io.each_line.map { |line_code| Sodor::LineCode.parse(line_code) }.each_with_object(Stations.new) do |line_code, stations|
-        ap line_code
-
         stations[line_code.origin] ||= Station.new(line_code.origin)
         origin = stations[line_code.origin]
 

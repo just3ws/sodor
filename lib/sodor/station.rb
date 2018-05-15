@@ -6,6 +6,7 @@ module Sodor
 
     def initialize(code)
       @code = code.to_sym
+
       @inbound = Set.new
       @outbound = Set.new
     end

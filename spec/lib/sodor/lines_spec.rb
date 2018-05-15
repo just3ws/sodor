@@ -2,13 +2,22 @@
 
 require 'sodor/lines'
 require 'sodor/line'
+require 'sodor/line_code'
 
 module Sodor
   RSpec.describe Lines do
     subject(:sodor_lines) { described_class.new(lines) }
 
     let(:line_codes) { %w[AB1 BC2] }
-    let(:lines) { line_codes.map { |line_code| Line.new(line_code) } }
+    let(:lines) do
+      line_codes.map { |line_code| Sodor::LineCode.parse(line_code) }.map do |line_code|
+        Line.new(
+          Station.new(line_code.origin),
+          Station.new(line_code.destination),
+          line_code.distance
+        )
+      end
+    end
 
     describe '#routes' do
       context 'with non-existent origin and destination' do

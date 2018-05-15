@@ -5,15 +5,7 @@ require 'sodor/station'
 
 module Sodor
   RSpec.describe Stations do
-    let(:line_codes) do
-      %w[
-        AB1
-        BC2
-        CD3
-        DB4
-        DC4
-      ]
-    end
+    let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4] }
 
     describe '.build' do
       subject(:stations) { described_class.build(sio) }
@@ -39,6 +31,11 @@ module Sodor
         expect(stations[:B].inbound.map(&:code)).to contain_exactly(:A, :D)
         expect(stations[:C].inbound.map(&:code)).to contain_exactly(:B, :D)
         expect(stations[:D].inbound.map(&:code)).to contain_exactly(:C)
+      end
+
+      it do
+        binding.pry
+        puts
       end
     end
   end

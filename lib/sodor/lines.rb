@@ -5,7 +5,7 @@ require 'sodor/line'
 module Sodor
   class Lines < Set
     def routes(origin_station, destination_station)
-      return Set.new unless routable?(origin_station, destination_station)
+      return SortedSet.new unless routable?(origin_station, destination_station)
     end
 
     def routable?(origin_station, destination_station)
@@ -51,8 +51,16 @@ module Sodor
     end
 
     def self.build(io)
-      io.each_line.each_with_object(Lines.new) do |line_code, lines|
-        lines.add(Sodor::Line.new(line_code))
+      # io.each_line.each_with_object(Lines.new) do |line_code, lines|
+      io.each_line.map { |line_code| Sodor::LineCode.parse(line_code) }.each_with_object(Lines.new) do |line_code, lines|
+        ap line_code
+
+        line = Line.new(
+          Station.new(line_code.origin),
+          Station.new(line_code.destination),
+          line_code.distance
+        )
+        lines.add(line)
       end
     end
   end
