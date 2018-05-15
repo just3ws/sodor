@@ -5,14 +5,16 @@ require 'sodor/station'
 
 module Sodor
   RSpec.describe Line do
-    subject(:line) { described_class.new(line_code) }
+    subject(:line) { described_class.new(station_a, station_b, distance) }
 
-    let(:line_code) { 'AB1' }
+    let(:station_a) { Station.new(:A) }
+    let(:station_b) { Station.new(:B) }
+    let(:distance) { 1 }
 
     it { is_expected.to be_frozen }
-    it { expect(line.origin).to eq(Station.new(:A)) }
-    it { expect(line.destination).to eq(Station.new(:B)) }
-    it { expect(line.distance).to equal(1) }
-    it { expect(line).to eq(Line.new(line_code)) }
+    it { expect(line.origin).to eq(station_a) }
+    it { expect(line.destination).to eq(station_b) }
+    it { expect(line.distance).to equal(distance) }
+    it { expect(line).to eq(Line.new(station_a, station_b, distance)) }
   end
 end
