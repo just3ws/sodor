@@ -8,11 +8,11 @@ gemspec
 
 ruby '~> 2.5.1'
 
-gem 'awesome_print'
-gem 'byebug'
-gem 'pry'
-gem 'pry-byebug'
-gem 'ruby-graphviz'
+gem 'awesome_print', require: false
+gem 'byebug', require: false
+gem 'pry', require: false
+gem 'pry-byebug', require: false
+gem 'ruby-graphviz', require: false
 
 group :development do
   gem 'bundler-audit', require: false
