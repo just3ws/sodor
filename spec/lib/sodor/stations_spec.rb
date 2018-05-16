@@ -38,14 +38,14 @@ module Sodor
 
       it do
         system('clear')
-        # route = Stations.trip_builder(stations[:A], stations[:B])
-        # route = Stations.trip_builder(stations[:A], stations[:C])
-        route = Stations.trip_builder(stations[:A], stations[:E])
+        # route = Stations.route_finder(stations[:A], stations[:B])
+        # route = Stations.route_finder(stations[:A], stations[:C])
+        route = Stations.route_finder(stations[:A], stations[:E])
 
         ap route
 
-        # binding.pry
-        # puts
+        binding.pry
+        puts
       end
     end
   end

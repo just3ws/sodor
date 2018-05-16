@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 require 'sodor/line_code'
+require 'set'
 
 module Sodor
   class Stations < Hash
-    def self.trip_builder(origin, destination, visited_stations: [])
+    attr_reader :distances
+
+    def initialize
+      @distances = {}
+    end
+
+    def self.route_finder(origin, destination, visited_stations: [])
       visited_stations.push(origin) if visited_stations.empty?
 
       # Direct connection
@@ -17,7 +24,7 @@ module Sodor
 
         break if station.departs_to?(destination)
 
-        trip_builder(station, destination, visited_stations: visited_stations)
+        route_finder(station, destination, visited_stations: visited_stations)
       end
 
       visited_stations
@@ -34,6 +41,8 @@ module Sodor
 
           origin.outbound.add(destination.freeze)
           destination.inbound.add(origin.freeze)
+
+          stations.distances[[line_code.origin, line_code.destination].freeze] ||= line_code.distance
         end
 
         stations.freeze

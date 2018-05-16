@@ -32,8 +32,8 @@ module Sodor
     end
     alias == eql?
 
-    def inspect
-      [code, { inbound: inbound.map(&:code), outbound: outbound.map(&:code) }]
-    end
+    # def inspect
+    #   [code, { inbound: inbound.map(&:code), outbound: outbound.map(&:code) }]
+    # end
   end
 end
