@@ -3,7 +3,7 @@
 require 'sodor/line'
 require 'sodor/station/station_set'
 require 'sodor/line/line_set'
-require 'sodor/lines/builder'
+require 'sodor/lines_builder'
 require 'sodor/railroad/routes'
 
 module Sodor
@@ -31,11 +31,7 @@ module Sodor
 
     # Stations known to have outbound line(s).
     def origins
-      @origins ||= @lines.classify { |line| line.origin.code }.freeze
-    rescue StandardError => ex
-      ap ex
-      binding.pry
-      puts
+      @origins ||= lines.classify { |line| line.origin.code }.freeze
     end
 
     # Is this station known to have an inbound line(s)?
@@ -45,7 +41,7 @@ module Sodor
 
     # Stations known to have inbound line(s).
     def destinations
-      @destinations ||= classify { |line| line.destination.code }.freeze
+      @destinations ||= lines.classify { |line| line.destination.code }.freeze
     end
 
     # What are the stations that have outbound line(s) directly to this station?

@@ -47,17 +47,13 @@ module Sodor
     end
 
     describe '.build' do
-      subject { described_class::Builder.build(sio) }
+      subject { Sodor::LinesBuilder.build(sio) }
 
       let(:sio) do
         StringIO.new.tap do |io|
           line_codes.each { |line_code| io.puts(line_code) }
           io.rewind
         end
-      end
-
-      it do
-        ap subject
       end
 
       it { is_expected.to be_an_instance_of(Lines) }
