@@ -1,8 +1,5 @@
 # frozen_string_literal: true
 
-require 'set'
-require 'forwardable'
-
 require 'sodor/station/inbound'
 require 'sodor/station/outbound'
 

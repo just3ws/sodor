@@ -2,7 +2,6 @@
 
 require 'sodor/line_code'
 require 'sodor/stations_builder'
-require 'forwardable'
 
 module Sodor
   class Stations
