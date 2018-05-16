@@ -1,0 +1,9 @@
+---
+plugins:
+  rubocop:
+    enabled: true
+exclude_patterns:
+  - spec/
+  - .bettercodehub.yml
+  - .codeclimate.yml
+  - .fasterer.yml
