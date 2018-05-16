@@ -18,7 +18,7 @@ module Sodor
       end
 
       context 'with non-existent origin and destination' do
-        let(:line_codes) { %w[AB1 BC2] }
+        let(:line_codes) { %w[AB1 BC2].shuffle }
 
         it { expect(router.find_route_for(stations[:X], stations[:B])).to be_empty }
         it { expect(router.find_route_for(stations[:A], stations[:Y])).to be_empty }
@@ -36,7 +36,7 @@ module Sodor
       context 'with a direct route' do
         subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
 
-        let(:line_codes) { %w[AC1 AB2] }
+        let(:line_codes) { %w[AC1 AB2].shuffle }
 
         it { is_expected.to eq(%i[A B]) }
       end
@@ -44,7 +44,7 @@ module Sodor
       context 'with a single hop route' do
         subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
 
-        let(:line_codes) { %w[AC1 CB2] }
+        let(:line_codes) { %w[AC1 CB2].shuffle }
 
         it { is_expected.to eq(%i[A C B]) }
       end
@@ -52,7 +52,7 @@ module Sodor
       context 'with a multiple step route' do
         subject { router.find_route_for(stations[:A], stations[:E]).map(&:code) }
 
-        let(:line_codes) { %w[AD1 BC2 CE3 DB4] }
+        let(:line_codes) { %w[AD1 BC2 CE3 DB4].shuffle }
 
         it { is_expected.to eq(%i[A D B C E]) }
       end
