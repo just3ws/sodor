@@ -18,9 +18,14 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-0-52
+  duplication:
+    enabled: true
+    config:
+      languages:
+        - ruby
 ratings:
   paths:
-  - '**.rb'
+    - '**.rb'
 exclude_patterns:
   - spec/
   - .bettercodehub.yml
