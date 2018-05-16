@@ -27,13 +27,13 @@ module Sodor
       end
 
       xcontext 'with a single direct route' do
-        xit { expect(lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
+        it { expect(lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
       end
 
       xcontext 'with a single hop route' do
         let(:line_codes) { %w[AB1 BC2 CD3] }
 
-        xit do
+        it do
           # expect(lines.routes(:A, :C)).to contain_exactly(%i[A B C])
 
           # Is origin directly connected to destination?

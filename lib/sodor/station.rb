@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
+require 'set'
+require 'forwardable'
+
+require 'sodor/station/inbound'
+require 'sodor/station/outbound'
+
 module Sodor
   class Station
-    class Inbound < SortedSet
-    end
-
-    class Outbound < SortedSet
-    end
-
     include Comparable
 
     attr_reader :code, :inbound, :outbound
