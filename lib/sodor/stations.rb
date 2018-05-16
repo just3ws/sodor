@@ -8,10 +8,7 @@ module Sodor
       visited_stations.push(origin) if visited_stations.empty?
 
       # Direct connection
-      if origin.departs_to?(destination)
-        visited_stations.push(destination)
-        return visited_stations
-      end
+      return visited_stations if origin.departs_to?(destination)
 
       unvisited_stations_stations = origin.outbound.reject { |station| visited_stations.include?(station) }
 
