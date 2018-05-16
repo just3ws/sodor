@@ -10,33 +10,14 @@ module Sodor
     subject(:sodor_lines) { described_class.new(lines) }
 
     let(:lines) do
-      foo = line_codes.map { |line_code| LineCode.new(line_code) }.map do |line_code|
-        Line.new(Station.new(line_code.origin), Station.new(line_code.destination), line_code.distance)
-      end
-
-      Sodor::Line::LineSet.new(foo)
+      Sodor::Line::LineSet.new(
+        line_codes
+        .map { |line_code| LineCode.new(line_code) }
+        .map { |line_code| Line.new(Station.new(line_code.origin), Station.new(line_code.destination), line_code.distance) }
+      )
     end
 
     let(:line_codes) { %w[AB1 BC2] }
-
-    describe '#routes' do
-      context 'with non-existent origin and destination' do
-        it { expect(sodor_lines.routes(Station.new(:X), Station.new(:B))).to be_empty }
-        it { expect(sodor_lines.routes(Station.new(:A), Station.new(:Y))).to be_empty }
-        it { expect(sodor_lines.routes(Station.new(:X), Station.new(:Y))).to be_empty }
-      end
-
-      context 'with a single direct route' do
-        it do
-          actual = sodor_lines.routes(Station.new(:A), Station.new(:B))
-          expect(actual).to contain_exactly(%i[A B])
-        end
-      end
-
-      context 'with a single hop route' do
-        let(:line_codes) { %w[AB1 BC2 CD3] }
-      end
-    end
 
     describe '#routable?' do
       it { is_expected.to be_routable(Station.new(:A), Station.new(:C)) }

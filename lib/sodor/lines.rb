@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 require 'sodor/line'
+require 'sodor/station/station_set'
 require 'sodor/line/line_set'
-require 'set'
-require 'forwardable'
 require 'sodor/lines/builder'
+require 'sodor/railroad/routes'
 
 module Sodor
   class Lines
@@ -15,13 +15,7 @@ module Sodor
     def_delegators(:@lines, :add, :include?, :reject, :tap, :map, :classify, :to_a)
 
     def initialize(lines = Sodor::Line::LineSet.new)
-      raise "Was #{lines.class}" unless lines.instance_of?(Sodor::Line::LineSet)
       @lines = lines
-    end
-
-    def routes(origin, destination)
-      return SortedSet.new unless routable?(origin, destination)
-      []
     end
 
     def routable?(origin, destination)

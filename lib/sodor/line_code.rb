@@ -9,6 +9,7 @@ module Sodor
       @origin = tokens.shift.to_sym
       @destination = tokens.shift.to_sym
       @distance = Integer(tokens.shift)
+      freeze
     end
 
     def self.parse(line_code)

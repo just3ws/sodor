@@ -3,11 +3,16 @@
 module Sodor
   module Railroad
     module Routes
-      def self.find_route_for(origin, destination, visited_stations: [])
+      module_function
+
+      def find_route_for(origin, destination, visited_stations: [], route: [])
+        return [] if origin.nil? || destination.nil?
+
         visited_stations.push(origin) if visited_stations.empty?
 
         # Direct connection
-        return visited_stations if origin.departs_to?(destination)
+        return visited_stations.push(destination) if origin.departs_to?(destination)
+        # return route if origin.departs_to?(destination)
 
         unvisited_stations_stations = origin.outbound.reject { |station| visited_stations.include?(station) }
 
@@ -16,10 +21,10 @@ module Sodor
 
           break if station.departs_to?(destination)
 
-          find_route_for(station, destination, visited_stations: visited_stations)
+          find_route_for(station, destination, visited_stations: visited_stations, route: route)
         end
 
-        visited_stations
+        visited_stations.push(destination)
       end
     end
   end
