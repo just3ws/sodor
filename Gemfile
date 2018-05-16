@@ -28,6 +28,8 @@ group :development do
   gem 'rubocop', require: false
   gem 'rubocop-rspec', require: false
   gem 'rubocop-thread_safety', require: false
+  gem 'ruby-lint', require: false
+  gem 'rubycritic', require: false
   gem 'sandi_meter', require: false
 end
 
