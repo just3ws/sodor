@@ -4,31 +4,26 @@ require 'sodor/line_code'
 
 module Sodor
   class Stations < Hash
-    def self.trip_builder(origin, destination, visited: [])
-      visited.push(origin) if visited.empty?
+    def self.trip_builder(origin, destination, visited_stations: [])
+      visited_stations.push(origin) if visited_stations.empty?
 
       # Direct connection
       if origin.departs_to?(destination)
-        visited.push(destination)
-        return visited
+        visited_stations.push(destination)
+        return visited_stations
       end
 
-      unvisited_stations = origin.outbound.reject { |station| visited.include?(station) }
+      unvisited_stations_stations = origin.outbound.reject { |station| visited_stations.include?(station) }
 
-      unvisited_stations.each do |station|
-        visited.push(station)
+      unvisited_stations_stations.each do |station|
+        visited_stations.push(station)
 
         break if station.departs_to?(destination)
 
-        x = trip_builder(origin, destination, visited: visited)
-
-        binding.pry
-        puts
+        trip_builder(station, destination, visited_stations: visited_stations)
       end
 
-      visited.push(destination)
-
-      visited
+      visited_stations
     end
 
     def self.build(io)
