@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 require 'sodor/line'
-require 'sodor/station/station_set'
-require 'sodor/line/line_set'
+require 'sodor/station/set'
+require 'sodor/line/set'
 require 'sodor/lines_builder'
 require 'sodor/railroad/routes'
 
@@ -14,7 +14,7 @@ module Sodor
 
     def_delegators(:@lines, :add, :include?, :reject, :tap, :map, :classify, :to_a)
 
-    def initialize(lines = Sodor::Line::LineSet.new)
+    def initialize(lines = Sodor::Line::Set.new)
       @lines = lines
     end
 

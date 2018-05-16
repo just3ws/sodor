@@ -2,18 +2,18 @@
 
 require 'sodor/lines'
 require 'sodor/line'
-require 'sodor/line/line_set'
+require 'sodor/line/set'
 require 'sodor/line_code'
 
 module Sodor
   RSpec.describe Lines do
-    subject(:sodor_lines) { described_class.new(lines) }
+    subject(:lines) { described_class.new(line_set) }
 
-    let(:lines) do
-      Sodor::Line::LineSet.new(
+    let(:line_set) do
+      Sodor::Line::Set.new(
         line_codes
-        .map { |line_code| LineCode.new(line_code) }
-        .map { |line_code| Line.new(Station.new(line_code.origin), Station.new(line_code.destination), line_code.distance) }
+        .map { |line_code| Sodor::LineCode.new(line_code) }
+        .map { |line_code| Sodor::Line.new(Sodor::Station.new(line_code.origin), Sodor::Station.new(line_code.destination), line_code.distance) }
       )
     end
 
@@ -26,24 +26,22 @@ module Sodor
 
     describe '#origin' do
       it do
-        expect(sodor_lines.origins_for(Station.new(:B))).to contain_exactly(Station.new(:A))
+        expect(lines.origins_for(Station.new(:B))).to contain_exactly(Station.new(:A))
       end
     end
 
     describe '#origin?' do
-      it { is_expected.to be_origin(Station.new(:A)) }
-      it { is_expected.not_to be_origin(Station.new(:C)) }
+      it { is_expected.to be_origin(Sodor::Station.new(:A)) }
+      it { is_expected.not_to be_origin(Sodor::Station.new(:C)) }
     end
 
     describe '#destination?' do
-      it { is_expected.to be_destination(Station.new(:C)) }
-      it { is_expected.not_to be_destination(Station.new(:A)) }
+      it { is_expected.to be_destination(Sodor::Station.new(:C)) }
+      it { is_expected.not_to be_destination(Sodor::Station.new(:A)) }
     end
 
     describe '#destinations_for' do
-      it do
-        expect(sodor_lines.destinations_for(Station.new(:A))).to contain_exactly(Station.new(:B))
-      end
+      it { expect(lines.destinations_for(Sodor::Station.new(:A))).to contain_exactly(Sodor::Station.new(:B)) }
     end
 
     describe '.build' do
@@ -57,7 +55,7 @@ module Sodor
       end
 
       it { is_expected.to be_an_instance_of(Lines) }
-      it { is_expected.to contain_exactly(*lines) }
+      it { is_expected.to contain_exactly(*line_set) }
     end
   end
 end
