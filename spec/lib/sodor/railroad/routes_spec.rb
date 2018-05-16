@@ -8,7 +8,7 @@ module Sodor
     RSpec.describe Routes do
       subject(:router) { described_class }
 
-      let(:stations) { Sodor::StationsBuilder.build(sio) }
+      let(:stations) { StationsBuilder.build(sio) }
 
       let(:sio) do
         StringIO.new.tap do |io|
@@ -25,20 +25,36 @@ module Sodor
         it { expect(router.find_route_for(stations[:X], stations[:Y])).to be_empty }
       end
 
-      context 'with a single direct route' do
+      context 'with only a single direct route' do
         subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
 
-        let(:line_codes) { %w[AB1 BC2] }
+        let(:line_codes) { %w[AB1] }
 
-        it { is_expected.to contain_exactly(:A, :B) }
+        it { is_expected.to eq(%i[A B]) }
+      end
+
+      context 'with a direct route' do
+        subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
+
+        let(:line_codes) { %w[AC1 AB2] }
+
+        it { is_expected.to eq(%i[A B]) }
       end
 
       context 'with a single hop route' do
-        subject { router.find_route_for(stations[:A], stations[:C]).map(&:code) }
+        subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
 
-        let(:line_codes) { %w[AB1 BC2] }
+        let(:line_codes) { %w[AC1 CB2] }
 
-        it { is_expected.to contain_exactly(:A, :B, :C) }
+        it { is_expected.to eq(%i[A C B]) }
+      end
+
+      context 'with a multiple step route' do
+        subject { router.find_route_for(stations[:A], stations[:E]).map(&:code) }
+
+        let(:line_codes) { %w[AD1 BC2 CE3 DB4] }
+
+        it { is_expected.to eq(%i[A D B C E]) }
       end
     end
   end
