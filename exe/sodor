@@ -40,16 +40,11 @@ raise 'File not processable' unless Sodor::CLI.processable?
 begin
   # app = Sodor::CLI.run(Sodor::App, ARGF)
 
-  lines = Sodor::Lines.build(ARGF)
+  # lines = Sodor::Lines.build(ARGF)
 
-  origins = lines.classify(&:origin)
-  destinations = lines.classify(&:destination)
+  # origins = lines.classify(&:origin)
+  # destinations = lines.classify(&:destination)
 
-  ap lines
-  ap origins
-  ap destinations
-
-  # binding.pry
   puts
 rescue Errno::EPIPE
   exit(74)

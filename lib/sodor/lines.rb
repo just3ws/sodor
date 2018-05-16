@@ -1,16 +1,32 @@
 # frozen_string_literal: true
 
 require 'sodor/line'
+require 'sodor/line/line_set'
+require 'set'
+require 'forwardable'
+require 'sodor/lines/builder'
 
 module Sodor
-  class Lines < SortedSet
-    def routes(origin_station, destination_station)
-      return SortedSet.new unless routable?(origin_station, destination_station)
+  class Lines
+    extend Forwardable
+
+    attr_reader :lines
+
+    def_delegators(:@lines, :add, :include?, :reject, :tap, :map, :classify, :to_a)
+
+    def initialize(lines = Sodor::Line::LineSet.new)
+      raise "Was #{lines.class}" unless lines.instance_of?(Sodor::Line::LineSet)
+      @lines = lines
     end
 
-    def routable?(origin_station, destination_station)
-      return false unless origin?(origin_station)
-      return false unless destination?(destination_station)
+    def routes(origin, destination)
+      return SortedSet.new unless routable?(origin, destination)
+      []
+    end
+
+    def routable?(origin, destination)
+      return false unless origin?(origin)
+      return false unless destination?(destination)
 
       true # Maybe.
     end
@@ -21,7 +37,11 @@ module Sodor
 
     # Stations known to have outbound line(s).
     def origins
-      @origins ||= classify { |line| line.origin.code }.freeze
+      @origins ||= @lines.classify { |line| line.origin.code }.freeze
+    rescue StandardError => ex
+      ap ex
+      binding.pry
+      puts
     end
 
     # Is this station known to have an inbound line(s)?
@@ -45,23 +65,7 @@ module Sodor
     end
 
     def stations
-      @stations ||= begin
-                      flat_map { |line| [line.destination, line.origin] }.sort.uniq.freeze
-                    end
-    end
-
-    def self.build(io)
-      # io.each_line.each_with_object(Lines.new) do |line_code, lines|
-      io.each_line.map { |line_code| Sodor::LineCode.parse(line_code) }.each_with_object(Lines.new) do |line_code, lines|
-        ap line_code
-
-        line = Line.new(
-          Station.new(line_code.origin),
-          Station.new(line_code.destination),
-          line_code.distance
-        )
-        lines.add(line)
-      end
+      @stations ||= StationSet.new(flat_map { |line| [line.destination, line.origin] })
     end
   end
 end

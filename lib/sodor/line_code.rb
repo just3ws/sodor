@@ -1,14 +1,18 @@
 # frozen_string_literal: true
 
 module Sodor
-  module LineCode
+  class LineCode
+    attr_reader :origin, :destination, :distance
+
+    def initialize(line_code)
+      tokens = LineCode.parse(line_code)
+      @origin = tokens.shift.to_sym
+      @destination = tokens.shift.to_sym
+      @distance = Integer(tokens.shift)
+    end
+
     def self.parse(line_code)
-      tokens = line_code.strip.upcase.split('')
-      OpenStruct.new(
-        origin: tokens[0].to_sym,
-        destination: tokens[1].to_sym,
-        distance: Integer(tokens[2])
-      )
+      line_code.strip.upcase.split('')
     end
   end
 end

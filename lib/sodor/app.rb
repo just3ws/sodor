@@ -2,10 +2,10 @@
 
 module Sodor
   class App
-    attr_reader :railroad
+    # attr_reader :railroad
 
     def initialize(railroad:)
-      @railroad = railroad.freeze
+      # @railroad = railroad.freeze
     end
   end
 end

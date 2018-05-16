@@ -2,22 +2,22 @@
 
 require 'sodor/lines'
 require 'sodor/line'
+require 'sodor/line/line_set'
 require 'sodor/line_code'
 
 module Sodor
   RSpec.describe Lines do
     subject(:sodor_lines) { described_class.new(lines) }
 
-    let(:line_codes) { %w[AB1 BC2] }
     let(:lines) do
-      line_codes.map { |line_code| Sodor::LineCode.parse(line_code) }.map do |line_code|
-        Line.new(
-          Station.new(line_code.origin),
-          Station.new(line_code.destination),
-          line_code.distance
-        )
+      foo = line_codes.map { |line_code| LineCode.new(line_code) }.map do |line_code|
+        Line.new(Station.new(line_code.origin), Station.new(line_code.destination), line_code.distance)
       end
+
+      Sodor::Line::LineSet.new(foo)
     end
+
+    let(:line_codes) { %w[AB1 BC2] }
 
     describe '#routes' do
       context 'with non-existent origin and destination' do
@@ -26,31 +26,15 @@ module Sodor
         it { expect(sodor_lines.routes(Station.new(:X), Station.new(:Y))).to be_empty }
       end
 
-      xcontext 'with a single direct route' do
-        it { expect(lines.routes(Station.new(:A), Station.new(:B))).to contain_exactly(%i[A B]) }
+      context 'with a single direct route' do
+        it do
+          actual = sodor_lines.routes(Station.new(:A), Station.new(:B))
+          expect(actual).to contain_exactly(%i[A B])
+        end
       end
 
-      xcontext 'with a single hop route' do
+      context 'with a single hop route' do
         let(:line_codes) { %w[AB1 BC2 CD3] }
-
-        it do
-          # expect(lines.routes(:A, :C)).to contain_exactly(%i[A B C])
-
-          # Is origin directly connected to destination?
-          # for each destination that is reachable from the origin
-          #   check if that new origin is directly connected to destination?
-          #     for each destination that is reachable from the new origin
-          #       check if ...
-
-          # foo = lines.routes(:A, :C)
-
-          # ap foo
-          #
-          root = :A
-
-          # binding.pry
-          puts
-        end
       end
     end
 
@@ -82,13 +66,17 @@ module Sodor
     end
 
     describe '.build' do
-      subject { described_class.build(sio) }
+      subject { described_class::Builder.build(sio) }
 
       let(:sio) do
         StringIO.new.tap do |io|
           line_codes.each { |line_code| io.puts(line_code) }
           io.rewind
         end
+      end
+
+      it do
+        ap subject
       end
 
       it { is_expected.to be_an_instance_of(Lines) }

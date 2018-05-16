@@ -2,6 +2,7 @@
 
 require 'sodor/stations'
 require 'sodor/station'
+require 'sodor/railroad/routes'
 
 module Sodor
   RSpec.describe Stations do
@@ -10,7 +11,7 @@ module Sodor
     # let(:line_codes) { %w[AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7] }
 
     describe '.build' do
-      subject(:stations) { described_class.build(sio) }
+      subject(:stations) { described_class::Builder.build(sio) }
 
       let(:sio) do
         StringIO.new.tap do |io|
@@ -38,9 +39,9 @@ module Sodor
 
       it do
         system('clear')
-        # route = Stations.route_finder(stations[:A], stations[:B])
-        # route = Stations.route_finder(stations[:A], stations[:C])
-        route = Stations.route_finder(stations[:A], stations[:E])
+        # route = Sodor::Railroad::Routes.find_route_for(stations[:A], stations[:B])
+        # route = Sodor::Railroad::Routes.find_route_for(stations[:A], stations[:C])
+        route = Sodor::Railroad::Routes.find_route_for(stations[:A], stations[:E])
 
         ap route
 
