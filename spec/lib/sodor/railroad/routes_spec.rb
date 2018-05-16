@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'sodor/stations'
 require 'sodor/stations_builder'
 require 'sodor/railroad/routes'
 
@@ -11,8 +10,6 @@ module Sodor
 
       let(:stations) { Sodor::StationsBuilder.build(sio) }
 
-      let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4 DE5 FG1 GH2] }
-
       let(:sio) do
         StringIO.new.tap do |io|
           line_codes.each { |line_code| io.puts(line_code) }
@@ -21,19 +18,27 @@ module Sodor
       end
 
       context 'with non-existent origin and destination' do
+        let(:line_codes) { %w[AB1 BC2] }
+
         it { expect(router.find_route_for(stations[:X], stations[:B])).to be_empty }
         it { expect(router.find_route_for(stations[:A], stations[:Y])).to be_empty }
         it { expect(router.find_route_for(stations[:X], stations[:Y])).to be_empty }
       end
 
       context 'with a single direct route' do
-        it { expect(router.find_route_for(stations[:A], stations[:B]).map(&:code)).to contain_exactly(:A, :B) }
+        subject { router.find_route_for(stations[:A], stations[:B]).map(&:code) }
+
+        let(:line_codes) { %w[AB1 BC2] }
+
+        it { is_expected.to contain_exactly(:A, :B) }
       end
 
       context 'with a single hop route' do
-        let(:line_codes) { %w[AB1 BC2 CD3] }
+        subject { router.find_route_for(stations[:A], stations[:C]).map(&:code) }
 
-        it { expect(router.find_route_for(stations[:A], stations[:C]).map(&:code)).to contain_exactly(:A, :B, :C) }
+        let(:line_codes) { %w[AB1 BC2] }
+
+        it { is_expected.to contain_exactly(:A, :B, :C) }
       end
     end
   end

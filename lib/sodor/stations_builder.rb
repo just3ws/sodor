@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require 'sodor/station'
-require 'sodor/stations'
-require 'sodor/line_code'
-
 module Sodor
   module StationsBuilder
     module_function
