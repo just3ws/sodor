@@ -48,7 +48,7 @@ module Sodor
           #
           root = :A
 
-          binding.pry
+          # binding.pry
           puts
         end
       end

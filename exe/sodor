@@ -49,7 +49,7 @@ begin
   ap origins
   ap destinations
 
-  binding.pry
+  # binding.pry
   puts
 rescue Errno::EPIPE
   exit(74)
