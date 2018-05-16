@@ -5,7 +5,7 @@ require 'sodor/station'
 
 module Sodor
   RSpec.fdescribe Stations do
-    let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4] }
+    let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4 DE5] }
 
     fdescribe '.build' do
       subject(:stations) { described_class.build(sio) }
@@ -23,7 +23,7 @@ module Sodor
         expect(stations[:A].outbound.map(&:code)).to contain_exactly(:B)
         expect(stations[:B].outbound.map(&:code)).to contain_exactly(:C)
         expect(stations[:C].outbound.map(&:code)).to contain_exactly(:D)
-        expect(stations[:D].outbound.map(&:code)).to contain_exactly(:B, :C)
+        expect(stations[:D].outbound.map(&:code)).to contain_exactly(:B, :C, :E)
       end
 
       it 'assigns inbound lines to stations' do
@@ -31,15 +31,19 @@ module Sodor
         expect(stations[:B].inbound.map(&:code)).to contain_exactly(:A, :D)
         expect(stations[:C].inbound.map(&:code)).to contain_exactly(:B, :D)
         expect(stations[:D].inbound.map(&:code)).to contain_exactly(:C)
+        expect(stations[:E].inbound.map(&:code)).to contain_exactly(:D)
       end
 
       it do
-        route = Stations.trip_builder(stations, stations[:A], stations[:C])
+        system('clear')
+        # route = Stations.trip_builder(stations[:A], stations[:B])
+        # route = Stations.trip_builder(stations[:A], stations[:C])
+        route = Stations.trip_builder(stations[:A], stations[:E])
 
         ap route
 
-        binding.pry
-        puts
+        # binding.pry
+        # puts
       end
     end
   end
