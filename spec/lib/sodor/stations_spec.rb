@@ -5,8 +5,9 @@ require 'sodor/station'
 
 module Sodor
   RSpec.fdescribe Stations do
-    # let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4 DE5] }
-    let(:line_codes) { %w[AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7] }
+    let(:line_codes) { %w[AB1 BC2 CD3 DB4 DC4 DE5] }
+
+    # let(:line_codes) { %w[AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7] }
 
     fdescribe '.build' do
       subject(:stations) { described_class.build(sio) }
