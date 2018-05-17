@@ -10,7 +10,8 @@ module Sodor
 
     def build(io)
       Stations.new.tap do |stations|
-        io.each_line.map { |line_code| LineCode.new(line_code) }.each do |line_code|
+        # io.each_line.map { |line_code| LineCode.new(line_code) }.each do |line_code|
+        io.to_a.each.map { |line_code| LineCode.new(line_code) }.each do |line_code|
           stations[line_code.origin] ||= Station.new(line_code.origin)
           origin = stations[line_code.origin]
 
