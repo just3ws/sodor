@@ -7,7 +7,7 @@ module Sodor
 
       def_delegators(:@stations, :add, :include?, :reject, :tap, :map, :to_a)
 
-      def initialize(stations = SortedSet.new)
+      def initialize(stations = SortedSet[])
         @stations = stations
       end
     end

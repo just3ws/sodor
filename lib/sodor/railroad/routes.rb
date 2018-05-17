@@ -9,7 +9,7 @@ module Sodor
         route.each_cons(2).sum { |trip| distances[trip] }
       end
 
-      def find_route_for(origin, destination, visited_stations: Set.new)
+      def find_route_for(origin, destination, visited_stations: Set[])
         return Set[] if origin.nil? || destination.nil?
 
         visited_stations.add(origin) if visited_stations.empty?
