@@ -5,6 +5,10 @@ module Sodor
     module Routes
       module_function
 
+      def total_distance_for(route, distances)
+        route.each_cons(2).sum { |trip| distances[trip] }
+      end
+
       def find_route_for(origin, destination, visited_stations: Set.new)
         return Set[] if origin.nil? || destination.nil?
 

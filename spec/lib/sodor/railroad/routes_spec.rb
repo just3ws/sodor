@@ -17,6 +17,40 @@ module Sodor
         end
       end
 
+      context 'with the acceptance criteria' do
+        let(:line_codes) { %w[AB5 BC4 CD8 DC8 DE6 AD5 CE2 EB3 AE7].shuffle }
+
+        it 'calculates the distance of the route A-B-C' do
+          route = router.find_route_for(stations[:A], stations[:C]).map(&:code)
+          distances = router.total_distance_for(route, stations.distances)
+          expect(distances).to eq(9)
+        end
+
+        it 'calculates the distance of the route A-D' do
+          route = router.find_route_for(stations[:A], stations[:D]).map(&:code)
+          distances = router.total_distance_for(route, stations.distances)
+          expect(distances).to eq(5)
+        end
+
+        it 'calculates the distance of the route A-D-C' do
+          route = %i[A D C]
+          distances = router.total_distance_for(route, stations.distances)
+          expect(distances).to eq(13)
+        end
+
+        it 'calculates the distance of the route A-E-B-C-D' do
+          route = %i[A E B C D]
+          distances = router.total_distance_for(route, stations.distances)
+          expect(distances).to eq(22)
+        end
+
+        it 'calculates the distance of the route A-E-D' do
+          route = %i[A E D]
+          distances = router.total_distance_for(route, stations.distances)
+          expect(distances).to eq(22)
+        end
+      end
+
       context 'with non-existent origin and destination' do
         let(:line_codes) { %w[AB1 BC2].shuffle }
 
